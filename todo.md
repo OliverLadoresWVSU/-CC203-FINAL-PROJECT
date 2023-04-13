@@ -12,6 +12,7 @@
 - [ ] Create a file reader.
     - [ ] Reads the students from a directory (Each student has its own text file *student*.txt).
     - [ ] Parses it into a vector of students.
+
 ~Add additional ideas after this line~
 
 ### Dhominick
@@ -29,4 +30,8 @@
     3.1 Username & Password
     3.2 Automatic Detect the Type of User based on the Credentials
 
+## Style Guide
+
+- Two space indentation (can set it in VSCode, ask Ollie).
+- (Up for contention) Trailing function return type.
 
