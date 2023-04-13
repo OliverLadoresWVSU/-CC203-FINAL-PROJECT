@@ -12,3 +12,5 @@
     1.2 Attendance
     1.3 Calendar System for the Year
 3. Security
+    3.1 Username & Password
+    3.2 Automatic Detect the Type of User based on the Credentials
