@@ -18,20 +18,20 @@
 ### Dhominick
 
 1. Student Management System Backend
-    1.1 Class for the Name for the Student
-    1.2 Define the Functions to Call for the Students
-    1.3 Define a Unique Identifier for the Students based on their ID
-        1.3.1 Define an ID Pattern Reading using CString
+    - [ ]  Class for the Name for the Student
+    - [ ]  Define the Functions to Call for the Students
+    - [ ] Define a Unique Identifier for the Students based on their ID
+        - [ ] Define an ID Pattern Reading using CString
 2. Features for the Program
-    1.1 Grades
-    1.2 Attendance
-    1.3 Calendar System for the Year
+    - [ ] Grades
+    - [ ] Attendance
+    - [ ] Calendar System for the Year
 3. Security
-    3.1 Username & Password
-    3.2 Automatic Detect the Type of User based on the Credentials
+    - [ ] Username & Password
+    - [ ] Automatic Detect the Type of User based on the Credentials
 
 ## Style Guide
 
 - Two space indentation (can set it in VSCode, ask Ollie).
-- (Up for contention) Trailing function return type.
+- (Up for contention) Trailing function return type. <mark> Probably after finishing the core concept? </mark>
 
