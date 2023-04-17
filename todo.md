@@ -30,8 +30,24 @@
     - [ ] Username & Password
     - [ ] Automatic Detect the Type of User based on the Credentials
 
+
+### Cristopher
+
+1. Login
+    - [ ] Student or Administrator
+    - [ ] Credentials
+    - [ ] Credentials should be correct as read in the credential file
+2. Add or View Students
+    - [ ] Add Students will direct to create new student and their credentials will be filled up. then, saved onto a .txt file
+    - [ ] View Students will direct to the Student Management System
+    - [ ] These mechanics will be exclusive for the Administrator
+3. Mechanics for Student Management System
+    - [ ] Student can only view their own student credentials
+    - [ ] Adminsitrator may edit the student credentials and View more than 1 student account
+
 ## Style Guide
 
 - Two space indentation (can set it in VSCode, ask Ollie).
 - (Up for contention) Trailing function return type. <mark> Probably after finishing the core concept? </mark>
+
 
