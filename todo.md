@@ -50,4 +50,17 @@
 - Two space indentation (can set it in VSCode, ask Ollie).
 - (Up for contention) Trailing function return type. <mark> Probably after finishing the core concept? </mark>
 
+## Student File Format
+
+In student file (ignoring[], prefixed with * is required):
+
+[ID]
+[Name]
+[Gender]
+[Year]
+[Course]
+[Email]
+[Mobile Number]
+[Section]
+[Notes]
 
