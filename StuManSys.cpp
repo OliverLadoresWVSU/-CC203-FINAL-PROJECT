@@ -17,11 +17,6 @@ using namespace std;
 int PromptUI();
 void PromptActions(int choice);
 
-int main(){
-    int choice;
-    choice = PromptUI();
-    PromptActions(choice);
-}
 
 int PromptUI(){
     int choice;
