@@ -5,13 +5,19 @@
 ### Oliver
 
 - [ ] Make a class representing a student.
-    - [ ] Define its members.
-    - [ ] Constructor takes a name and ID.
-    - [ ] Other fields/values are optional `std::optional`.
-    - [ ] Export as module.
+    - [X] Define its members.
+    ~~- [ ] Constructor takes a name and ID.~~
+    ~~- [ ] Other fields/values are optional `std::optional`.~~
+    ~~- [ ] Export as module.~~
+    - [X] Constructor needs all members as arguments, otherwise raise an error.
+    - [ ] Create a view method/friend (Possibly implement it using Dhom's implementation).
+    - [ ] Create a method to update member variables.
+    - [ ] Create a method to write/update Student to a file.
+    - [ ] Create a method to construct a Student from a file.
 - [ ] Create a file reader.
     - [ ] Reads the students from a directory (Each student has its own text file *student*.txt).
-    - [ ] Parses it into a vector of students.
+    - [ ] Parses it into a ~~vector of students~~ Student class.
+    - [ ] Create a function to delete a file.
 
 ~Add additional ideas after this line~
 
