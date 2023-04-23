@@ -57,10 +57,9 @@ In student file (ignoring[], prefixed with * is required):
 [ID]
 [Name]
 [Gender]
-[Year]
 [Course]
 [Email]
 [Mobile Number]
-[Section]
+[Year and Section]
 [Notes]
 
