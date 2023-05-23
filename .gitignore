@@ -33,3 +33,12 @@
 
 # VSCode Configs
 .vscode/
+StuManSys.ilk
+StuManSys.pdb
+a.ilk
+a.pdb
+compile-flags.txt
+student
+student.o.json
+student.pdb
+wiki_tui.log
