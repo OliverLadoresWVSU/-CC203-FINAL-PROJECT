@@ -46,7 +46,7 @@ public:
    * @param member The member to modify.
    * @param data The data to set the member to.
    */
-  void set(std::string member, std::optional<std::string> data) {
+  void set_from_str(std::string member, std::optional<std::string> data) {
     if (member.compare("id") == 0)
       id = data;
     else if (member.compare("last_name") == 0)
@@ -73,7 +73,7 @@ public:
       throw std::invalid_argument("Invalid member name.");
   }
 
-  auto get(std::string member) -> std::optional<std::string> {
+  auto get_from_str(std::string member) -> std::optional<std::string> {
     if (member.compare("id") == 0)
       return id;
     else if (member.compare("last_name") == 0)
@@ -106,12 +106,12 @@ auto main() -> int {
   auto Ollie = Student("2022M0012", None, "Oliver");
   auto Manuel = Student();
 
-  Ollie.set("id", "2022M1111");
-  Manuel.set("first_name", "John Manuel Carado");
-  // Ollie.set("last_name", "Ladores");
-  std::cout << Ollie.get("last_name").value_or("No value here.") << std::endl;
+  Ollie.set_from_str("id", "2022M1111");
+  Manuel.set_from_str("first_name", "John Manuel Carado");
+  // Ollie.set_from_str("last_name", "Ladores");
+  std::cout << Ollie.get_from_str("last_name").value_or("No value here.") << std::endl;
   try {
-    Ollie.set("invalid", "This should throw an error.");
+    Ollie.set_from_str("invalid", "This should throw an error.");
   } catch (std::invalid_argument &e) {
     std::cout << e.what() << std::endl;
   }
