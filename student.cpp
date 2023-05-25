@@ -335,7 +335,6 @@ void Function_Choices(){
   case 1:
     AddStudent();
     ViewStudent(student);
-    student.display();
     break;
   case 2:
     ViewStudent(student);
