@@ -16,6 +16,7 @@
 #include <fstream>
 #include <vector>
 #include <fstream>
+#include <filesystem>
 
 typedef unsigned int uint;
 
@@ -198,7 +199,7 @@ public:
  *
  * @param filename The filename of the file to write to. Preferably in .csv format.
  */
-void add_student_prompt(std::string filename)
+void AddStudent()
 {
   // Prerequisites:
   // Create a Student Object
@@ -239,16 +240,20 @@ void add_student_prompt(std::string filename)
     std::cout << "Enter the Student's Notes: ";
     std::cin >> notesInput;
     is_finished = 1;
+
   }
   // Setter Functions
 
   // Input Error Checking; If the user input 0, then the program will not change the value of the variable
   // Create a file that will store the student information
-  std::ofstream addStudent(filename, std::ios::app);
+
+
+  std::filesystem::create_directories("./Students_Info");
+  std::string filename = "./Students_Info/" + last_nameInput + ".csv";
+  std::ofstream addStudent(filename, std::ios::out);
   if (addStudent.fail())
   {
-    std::cout << "Error Creating File!"
-              << "\n";
+    std::cout << "Error Creating File!" << "\n";
     exit(1);
   }
   // Here goes the setters for the functions
@@ -264,7 +269,7 @@ void add_student_prompt(std::string filename)
 
 
 //! TODO: This needs to be updated to match the new file format.
-void ReadStudent(Student student)
+void ViewStudent(Student student)
 {
 
   std::string first_nameInput, middle_nameInput, last_nameInput, gender_Input, blood_typeInput, year_and_sectionInput, courseInput, emailInput, phone_numberInput, notesInput, birth_monthInput, birth_yearInput, addressInput, suffixInput;
@@ -291,6 +296,7 @@ void ReadStudent(Student student)
     student.set_from_str("notes", notesInput);
   } // Courtesy of Lem
     // Print all of the values
+    student.display();
     // std::cout << student.getFirst_Name() << " " << student.getMiddle_Name() << " " << student.getLast_Name() << " " << student.getBlood_Type() << " " << student.getGender() << " " << student.getSex() << std::endl;
 }
 
@@ -321,12 +327,46 @@ int PromptUI()
   return choice;
 }
 
+void Function_Choices(){
+  int choice = PromptUI();
+  Student student;
+  switch (choice)
+  {
+  case 1:
+    AddStudent();
+    ViewStudent(student);
+    student.display();
+    break;
+  case 2:
+    ViewStudent(student);
+    break;
+  case 3:
+    // EditStudent();
+    break;
+  case 4:
+    // DeleteStudent();
+    break;
+  case 5:
+    std::cout << "Exiting Program..."
+              << "\n";
+    exit(1);
+    break;
+  default:
+    std::cout << "Invalid Input!"
+              << "\n";
+    break;
+  }
+}
+
 auto main() -> int
 {
   auto None = std::nullopt;
   auto Ollie = Student("2022M0012", None, "Oliver", "Paracale", None, "Male", 12, "January", 2000, None, None, None, None, None, None);
   auto Manuel = Student();
 
+  auto StudentObj = Student();
+
+  Function_Choices();
   Ollie.set_from_str("id", "2022M1111");
   Manuel.set_from_str("first_name", "John Manuel Carado");
   Ollie.set_from_str("last_name", "Ladores");

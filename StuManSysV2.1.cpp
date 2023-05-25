@@ -223,49 +223,6 @@ void ReadStudent(Student student){
     std::cout << student.getFirst_Name() << " " << student.getMiddle_Name() << " " << student.getLast_Name() << " " << student.getBlood_Type() << " " << student.getGender() << " " << student.getSex() << std::endl;
 }
 
-// void ViewStudent(){
-//     std::ifstream view("StudentInfo.txt");
-//     std::string name, address, ID;
-//     std::cout << " Enter the student's SSN to search about him/her: " << "\n";
-//     std::cin >> ID;
-//     while (view >> ID >> name >> address)
-//     {
-//         if (ID == ID)
-//         {
-//             std::cout << "Student's name: " << name << "\n";
-//             std::cout << "Student's address: " << address << "\n";
-//             break;
-//         }
-//         else
-//         {
-//             std::cout<< " Student is not found!!" << "\n";
-
-//         }
-//     }
-//     view.close();
-// }
-
-
-// void SearchStudent(Student check_student) {
-// 	std::ifstream search("StudentInfo.txt");
-// 	std:: string name, address, ID;
-// 	std::cout << " Enter the student's SSN to search about him/her: " << "\n";
-// 	std::cin >> ID;
-// 	while (search >> check_student.getID() >> check_student.getLast_Name())
-// 	{
-// 			if (check_student.getID() == ID)
-// 			{
-//                 ViewStudent();
-// 				break;
-// 			}
-//             else
-//             {
-//                 std::cout<< " Student is not found!!" << "\n";
-
-//             }
-// 	search.close();
-// }}
-
 int PromptUI(){
     int choice;
     std::cout<< "\t\t\t\t\t------------------------------------" << "\n";
