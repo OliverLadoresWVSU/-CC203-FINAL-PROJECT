@@ -13,6 +13,8 @@
 #include <string>
 #include <stdexcept>
 #include <iostream>
+#include <fstream>
+#include <vector>
 
 typedef unsigned int uint;
 
@@ -92,6 +94,12 @@ public:
       throw std::invalid_argument("Invalid member name.");
   }
 
+  /**
+   * @brief Get the member from the string. Helpful for parsing.
+   *
+   * @param member Get the member from the string.
+   * @return std::optional&lang;std::string&rang; Return the member as a string.
+   */
   auto get_from_str(std::string member) -> std::optional<std::string>
   {
     if (member.compare("id") == 0)
@@ -130,11 +138,16 @@ public:
 
   void display()
   {
-    std::cout << "\t\t\t\t\t------------------------------------" << "\n";
-    std::cout << "\t\t\t\t\t\tStudent Information" << "\n";
-    std::cout << "\t\t\t\t\t------------------------------------" << "\n";
-    std::cout << "\t||            ,%#####%,           || " << "\n";
-    std::cout << "\t||       *###############%        || " << "\n";
+    std::cout << "\t\t\t\t\t------------------------------------"
+              << "\n";
+    std::cout << "\t\t\t\t\t\tStudent Information"
+              << "\n";
+    std::cout << "\t\t\t\t\t------------------------------------"
+              << "\n";
+    std::cout << "\t||            ,%#####%,           || "
+              << "\n";
+    std::cout << "\t||       *###############%        || "
+              << "\n";
     std::cout << "\t||     %#####################%    || "
               << "ID: " << id.value_or("No ID") << "\n";
     std::cout << "\t||    %#################&&#####   || "
@@ -156,12 +169,25 @@ public:
               << "Phone Number: " << phone_number.value_or("No Phone Number") << "\n";
     std::cout << "\t||        ####&&&&&&&&&&%##%&     || "
               << "Notes: " << notes.value_or("None") << "\n";
-    std::cout << "\t||       .*%%#%&&&&&&&&&#%%%*     || " << "\n";
-    std::cout << "\t||           #%&%%&&%%%%%         || " << "\n";
-    std::cout << "\t|| &%#####%####&&&&&&&&&###%######|| " << "\n";
-    std::cout << "\t||    %%#%%####%&&&&&&&#####%###% || " << "\n";
-    std::cout << "\t||       %##%###%&&&&&######%%    || " << "\n";
-    std::cout << "\t||           %###%&&&####%        || " << "\n";
+    std::cout << "\t||       .*%%#%&&&&&&&&&#%%%*     || "
+              << "\n";
+    std::cout << "\t||           #%&%%&&%%%%%         || "
+              << "\n";
+    std::cout << "\t|| &%#####%####&&&&&&&&&###%######|| "
+              << "\n";
+    std::cout << "\t||    %%#%%####%&&&&&&&#####%###% || "
+              << "\n";
+    std::cout << "\t||       %##%###%&&&&&######%%    || "
+              << "\n";
+    std::cout << "\t||           %###%&&&####%        || "
+              << "\n";
+  }
+
+  void add_student_from_file()
+  {
+    std::ifstream student_file;
+
+    student_file.open("student.txt", std::ios::app);
   }
 };
 
