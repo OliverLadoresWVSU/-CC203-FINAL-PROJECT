@@ -60,8 +60,6 @@ public:
    */
   void set_from_str(std::string member, std::optional<std::string> data)
   {
-    // Parameters 
-    (id, last_name, first_name, middle_name, suffix, gender, birth_day, birth_month, birth_year, address, course, year_and_section, email, phone_number, notes)
     std::size_t pos{};
     if (member.compare("id") == 0)
       id = data;
