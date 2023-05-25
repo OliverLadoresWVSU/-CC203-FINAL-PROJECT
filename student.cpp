@@ -60,8 +60,6 @@ public:
    */
   void set_from_str(std::string member, std::optional<std::string> data)
   {
-    // Parameters 
-    (id, last_name, first_name, middle_name, suffix, gender, birth_day, birth_month, birth_year, address, course, year_and_section, email, phone_number, notes)
     std::size_t pos{};
     if (member.compare("id") == 0)
       id = data;
@@ -186,6 +184,7 @@ public:
               << "\n";
   }
 
+  //! TODO: Add a function that will add student from file.
   void add_student_from_file()
   {
     std::ifstream student_file;
@@ -194,27 +193,25 @@ public:
   }
 };
 
-// void CreateStudentID(Student student){
-//     // Prerequisites:
-//         // Create an ID for the Student Based on their Information
-//     std::ostringstream ID;
-//     ID << student.getYear_of_Admission() << student.getFirst_Name()[0] << student.getMiddle_Name()[0] << student.getLast_Name()[0] << student.getBlood_Type()[0] << student.getGender()[0] << student.getSex()[0] << endl;
-//     student.setID(ID.str());
-//     std::cout << student.getID() << "\n";
-// }
+/**
+ * @brief Write the student information to a file.
+ *
+ * @param filename The filename of the file to write to. Preferably in .csv format.
+ */
+void add_student_prompt(std::string filename)
+{
+  // Prerequisites:
+  // Create a Student Object
+  // Create a Student ID
+  // Create a Student File
 
-void add_student_prompt(Student student) {
-    // Prerequisites:
-        // Create a Student Object
-        // Create a Student ID
-        // Create a Student File
+  // Create the variables
+  std::string first_nameInput, middle_nameInput, last_nameInput, gender_Input, year_and_sectionInput, courseInput, emailInput, phone_numberInput, notesInput, birth_dayInput, birth_monthInput, birth_yearInput, addressInput, suffixInput;
+  bool is_finished = 0;
 
-    // Create the variables
-    std::string first_nameInput, middle_nameInput, last_nameInput, gender_Input, blood_typeInput, year_and_sectionInput, courseInput, emailInput, phone_numberInput, notesInput, birth_monthInput, birth_yearInput, addressInput, suffixInput;
-    bool is_finished = 0;
-
-    // Create a cout that ask for the student information and store it in the class
-  while(!is_finished){
+  // Create a cout that ask for the student information and store it in the class
+  while (!is_finished)
+  {
     std::cout << "Enter the Student's First Name: ";
     std::cin >> first_nameInput;
     std::cout << "Enter the Student's Middle Name: ";
@@ -223,12 +220,18 @@ void add_student_prompt(Student student) {
     std::cin >> last_nameInput;
     std::cout << "Enter the Student's Gender: ";
     std::cin >> gender_Input;
-    std::cout << "Enter the Student's Blood Type: ";
-    std::cin >> blood_typeInput;
-    std::cout << "Enter the Student's Year and Section: ";
-    std::cin >> year_and_sectionInput;
+    std::cout << "Enter the Student's Birth Day: ";
+    std::cin >> birth_dayInput;
+    std::cout << "Enter the Student's Birth Month: ";
+    std::cin >> birth_monthInput;
+    std::cout << "Enter the Student's Birth Year: ";
+    std::cin >> birth_yearInput;
+    std::cout << "Enter the Student's Address: ";
+    std::cin >> addressInput;
     std::cout << "Enter the Student's Course: ";
     std::cin >> courseInput;
+    std::cout << "Enter the Student's Year and Section: ";
+    std::cin >> year_and_sectionInput;
     std::cout << "Enter the Student's Email: ";
     std::cin >> emailInput;
     std::cout << "Enter the Student's Phone Number: ";
@@ -237,66 +240,85 @@ void add_student_prompt(Student student) {
     std::cin >> notesInput;
     is_finished = 1;
   }
-    // Setter Functions
+  // Setter Functions
 
-    // Input Error Checking; If the user input 0, then the program will not change the value of the variable
-    // Create a file that will store the student information
-    std::ofstream addStudent("StudentInfo.txt", std::ios::app);
-    if(addStudent.fail()){
-        std::cout << "Error Creating File!" << "\n";
-        exit(1);
-    }
-    // Here goes the setters for the functions
-    // addStudent << student.get_from_str().value() << std::endl;
+  // Input Error Checking; If the user input 0, then the program will not change the value of the variable
+  // Create a file that will store the student information
+  std::ofstream addStudent(filename, std::ios::app);
+  if (addStudent.fail())
+  {
+    std::cout << "Error Creating File!"
+              << "\n";
+    exit(1);
+  }
+  // Here goes the setters for the functions
+  // addStudent << student.get_from_str().value() << std::endl;
 
-    // Write variables to the file
-    addStudent << first_nameInput  << last_nameInput  << middle_nameInput << suffixInput <<  gender_Input  <<  birth_monthInput << birth_yearInput << addressInput << courseInput << year_and_sectionInput << emailInput << phone_numberInput << notesInput << std::endl;
+  // Write variables to the file
+  addStudent << first_nameInput << ", " << last_nameInput << ", " << middle_nameInput << ", " << suffixInput << ", " << gender_Input << ", " << birth_dayInput << ", " << birth_monthInput << ", " << birth_yearInput << ", " << addressInput << ", " << courseInput << ", " << year_and_sectionInput << ", " << emailInput << ", " << phone_numberInput << ", " << notesInput << std::endl;
 
-    std::cout << "Student added successfully" << "\n"; 
-    addStudent.close();
-} 
-void ReadStudent(Student student){
+  std::cout << "Student added successfully"
+            << "\n";
+  addStudent.close();
+}
 
-    std::string first_nameInput, middle_nameInput, last_nameInput, gender_Input, blood_typeInput, year_and_sectionInput, courseInput, emailInput, phone_numberInput, notesInput, birth_monthInput, birth_yearInput, addressInput, suffixInput;
 
-    // std::string last_name, first_name, middle_name, suffix, gender, birth_day, birth_month, birth_year, address, course, year_and_section, email, phone_number, notes;
+//! TODO: This needs to be updated to match the new file format.
+void ReadStudent(Student student)
+{
 
-    // Variables needed to read the file
+  std::string first_nameInput, middle_nameInput, last_nameInput, gender_Input, blood_typeInput, year_and_sectionInput, courseInput, emailInput, phone_numberInput, notesInput, birth_monthInput, birth_yearInput, addressInput, suffixInput;
 
-    std::ifstream readStudent("StudentInfo.txt");
-    while(readStudent >> first_nameInput  >> last_nameInput  >> middle_nameInput >> suffixInput >>  gender_Input  >>  birth_monthInput >> birth_yearInput >> addressInput >> courseInput >> year_and_sectionInput >> emailInput >> phone_numberInput >> notesInput){
-        student.set_from_str("first_name", first_nameInput);
-        student.set_from_str("last_name", last_nameInput);
-        student.set_from_str("middle_name", middle_nameInput);
-        student.set_from_str("suffix", suffixInput);
-        student.set_from_str("gender", gender_Input);
-        student.set_from_str("birth_month", birth_monthInput);
-        student.set_from_str("birth_year", birth_yearInput);
-        student.set_from_str("address", addressInput);
-        student.set_from_str("course", courseInput);
-        student.set_from_str("year_and_section", year_and_sectionInput);
-        student.set_from_str("email", emailInput);
-        student.set_from_str("phone_number", phone_numberInput);
-        student.set_from_str("notes", notesInput);
-      } // Courtesy of Lem
+  // std::string last_name, first_name, middle_name, suffix, gender, birth_day, birth_month, birth_year, address, course, year_and_section, email, phone_number, notes;
+
+  // Variables needed to read the file
+
+  std::ifstream readStudent("StudentInfo.txt");
+  while (readStudent >> first_nameInput >> last_nameInput >> middle_nameInput >> suffixInput >> gender_Input >> birth_monthInput >> birth_yearInput >> addressInput >> courseInput >> year_and_sectionInput >> emailInput >> phone_numberInput >> notesInput)
+  {
+    student.set_from_str("first_name", first_nameInput);
+    student.set_from_str("last_name", last_nameInput);
+    student.set_from_str("middle_name", middle_nameInput);
+    student.set_from_str("suffix", suffixInput);
+    student.set_from_str("gender", gender_Input);
+    student.set_from_str("birth_month", birth_monthInput);
+    student.set_from_str("birth_year", birth_yearInput);
+    student.set_from_str("address", addressInput);
+    student.set_from_str("course", courseInput);
+    student.set_from_str("year_and_section", year_and_sectionInput);
+    student.set_from_str("email", emailInput);
+    student.set_from_str("phone_number", phone_numberInput);
+    student.set_from_str("notes", notesInput);
+  } // Courtesy of Lem
     // Print all of the values
     // std::cout << student.getFirst_Name() << " " << student.getMiddle_Name() << " " << student.getLast_Name() << " " << student.getBlood_Type() << " " << student.getGender() << " " << student.getSex() << std::endl;
 }
 
-int PromptUI(){
-    int choice;
-    std::cout<< "\t\t\t\t\t------------------------------------" << "\n";
-    std::cout<< "\t\t\t\t\t\tStudent Management System" << "\n";
-    std::cout<< "\t\t\t\t\t------------------------------------" << "\n";
-    std::cout<< "\t\t\t\t\t+ 1. Add Student\t\t   +" << "\n";
-    std::cout<< "\t\t\t\t\t+ 2. View Student\t\t   +" << "\n";
-    std::cout<< "\t\t\t\t\t+ 3. Edit Student\t\t   +" << "\n";
-    std::cout<< "\t\t\t\t\t+ 4. Delete Student\t\t   +" << "\n";
-    std::cout<< "\t\t\t\t\t+ 5. Exit\t\t\t   +" << "\n";
-    std::cout<< "\t\t\t\t\t------------------------------------" << "\n";
-    std::cout<< "\t\t\t\t\tAction: $ ";
-    std::cin >> choice;
-    return choice;  
+//! TODO: This may need to be refactored later.
+int PromptUI()
+{
+  int choice;
+  std::cout << "\t\t\t\t\t------------------------------------"
+            << "\n";
+  std::cout << "\t\t\t\t\t\tStudent Management System"
+            << "\n";
+  std::cout << "\t\t\t\t\t------------------------------------"
+            << "\n";
+  std::cout << "\t\t\t\t\t+ 1. Add Student\t\t   +"
+            << "\n";
+  std::cout << "\t\t\t\t\t+ 2. View Student\t\t   +"
+            << "\n";
+  std::cout << "\t\t\t\t\t+ 3. Edit Student\t\t   +"
+            << "\n";
+  std::cout << "\t\t\t\t\t+ 4. Delete Student\t\t   +"
+            << "\n";
+  std::cout << "\t\t\t\t\t+ 5. Exit\t\t\t   +"
+            << "\n";
+  std::cout << "\t\t\t\t\t------------------------------------"
+            << "\n";
+  std::cout << "\t\t\t\t\tAction: $ ";
+  std::cin >> choice;
+  return choice;
 }
 
 auto main() -> int
