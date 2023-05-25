@@ -232,7 +232,7 @@ public:
  * @param filename The filename of the file to write to. Preferably in .csv format.
  * File is formatted as follows: id, first_name, last_name, middle_name, suffix, gender, birth_day, birth_month, birth_year, address, course, year_and_section, email, phone_number, notes
  */
-void add_student_prompt(std::string filename)
+void AddStudent()
 {
   std::string idInput, first_nameInput, middle_nameInput, last_nameInput, genderInput, year_and_sectionInput, courseInput, emailInput, phone_numberInput, notesInput, birth_dayInput, birth_monthInput, birth_yearInput, addressInput, suffixInput;
   bool is_finished = 0;
@@ -269,6 +269,7 @@ void add_student_prompt(std::string filename)
     std::cout << "Enter the Student's Notes: ";
     std::getline(std::cin, notesInput);
     is_finished = 1;
+
   }
 
   std::ofstream addStudent(filename, std::ios::app);
@@ -314,12 +315,46 @@ int PromptUI()
   return choice;
 }
 
+void Function_Choices(){
+  int choice = PromptUI();
+  Student student;
+  switch (choice)
+  {
+  case 1:
+    AddStudent();
+    ViewStudent(student);
+    student.display();
+    break;
+  case 2:
+    ViewStudent(student);
+    break;
+  case 3:
+    // EditStudent();
+    break;
+  case 4:
+    // DeleteStudent();
+    break;
+  case 5:
+    std::cout << "Exiting Program..."
+              << "\n";
+    exit(1);
+    break;
+  default:
+    std::cout << "Invalid Input!"
+              << "\n";
+    break;
+  }
+}
+
 auto main() -> int
 {
   auto None = std::nullopt;
   auto Ollie = Student("2022M0012", None, "Oliver", "Paracale", None, "Male", 12, "January", 2000, None, None, None, None, None, None);
   auto Manuel = Student();
 
+  auto StudentObj = Student();
+
+  Function_Choices();
   Ollie.set_from_str("id", "2022M1111");
   Manuel.set_from_str("first_name", "John Manuel Carado");
   Ollie.set_from_str("last_name", "Ladores");
