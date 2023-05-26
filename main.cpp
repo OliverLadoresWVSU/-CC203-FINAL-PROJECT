@@ -1,6 +1,10 @@
 /**
  * @file student.cpp
- * @author Oliver Ladores (oliver.ladores@wvsu.edu.ph) Dhominick John S. Billena (Wla lng for clout)
+ * @author Oliver Ladores (oliver.ladores@wvsu.edu.ph) 
+ * Dhominick John S. Billena (dhominickjohn.billena@wvsu.edu.ph)
+ * Jephone Israel Jireh Torre(jephoneisrael.torre@wvsu.edu.ph)
+ * Cristopher Ian Artacho (cristopherian.artacho@wvsu.edu.ph)
+ * Lemmuel Dave Danosos (lemmueldave.danosos@wvsu.edu.ph)
  * @brief Implementation for Student class to be used with file parsing and data
  * manipulation. Note that this only compiles with the flag -std=c++20 (C++20)
  * @version 0.2
