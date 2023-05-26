@@ -17,6 +17,7 @@
 #include <vector>
 #include <fstream>
 #include <sstream>
+#include <filesystem>
 
 typedef unsigned int uint;
 
@@ -192,13 +193,13 @@ public:
   /**
    * @brief Read the student information from a file. Set the instance variables to the values read from the file.
    * 
-   * @param filename Name of file to read the student information from.
+   * @param filename Name of file to read the student information from. The file name is the Surname of the Student.
    */
   void read_from_file(std::string filename)
   {
     std::ifstream student_file(filename, std::ios::in);
 
-    if (student_file.is_open())
+    if (student_file.fail()) // Changed error checking method since it always returns true.
       std::cout << "Failed to open file.\n";
     else
     {
@@ -230,7 +231,7 @@ public:
       phone_number = tokens[13];
       notes = tokens[14];
     }
-    student_file.close();
+    student_file.close(); 
   }
 };
 
@@ -240,22 +241,24 @@ public:
  * @param filename The filename of the file to write to. Preferably in .csv format.
  * File is formatted as follows: id, first_name, last_name, middle_name, suffix, gender, birth_day, birth_month, birth_year, address, course, year_and_section, email, phone_number, notes
  */
-void prompt_student(std::string filename)
+void prompt_student() // Accessed Parameters from the Student Class no filename needed since the file name would be the student's last name.
 {
-  std::string idInput, first_nameInput, middle_nameInput, last_nameInput, genderInput, year_and_sectionInput, courseInput, emailInput, phone_numberInput, notesInput, birth_dayInput, birth_monthInput, birth_yearInput, addressInput, suffixInput;
+  std::string idInput, first_nameInput, middle_nameInput, last_nameInput, genderInput, year_and_sectionInput, courseInput, emailInput, phone_numberInput, notesInput, birth_dayInput, birth_monthInput, birth_yearInput, addressInput, suffixInput, filename;
   bool is_finished = 0;
 
   // Prompt the user for the student's information.
   while (!is_finished)
   {
     std::cout << "Enter the Student's ID: ";
-    std::getline(std::cin, idInput);
+    std::getline(std::cin, idInput); // Error when trying to write
     std::cout << "Enter the Student's First Name: ";
     std::getline(std::cin, first_nameInput);
     std::cout << "Enter the Student's Middle Name: ";
     std::getline(std::cin, middle_nameInput);
     std::cout << "Enter the Student's Last Name: ";
-    std::getline(std::cin, last_nameInput);
+    std::getline(std::cin, last_nameInput); // Since using getline allows spaces, why not just use enter full name with Spaces?
+    std::cout << "Enter the Student's Suffix: ";
+    std::getline(std::cin, suffixInput);
     std::cout << "Enter the Student's Gender: ";
     std::getline(std::cin, genderInput);
     std::cout << "Enter the Student's Birth Day: ";
@@ -280,6 +283,13 @@ void prompt_student(std::string filename)
 
   }
 
+  // Open the file to write to.
+  // filename = last_nameInput + ".csv";
+  if (!std::filesystem::exists("./Students_Info"))
+  {
+    std::filesystem::create_directories("./Students_Info");
+  }
+  filename = "./Students_Info/" + last_nameInput + ".csv";
   std::ofstream addStudent(filename, std::ios::app);
   if (addStudent.fail())
   {
@@ -289,6 +299,7 @@ void prompt_student(std::string filename)
     throw std::runtime_error("Error Creating File!");
   }
 
+  // Write the student's information to the file, pero dw no need na run mn ang delims pay? since automatic na si CSV ga input ka file name na .csv
   addStudent << idInput << "," << first_nameInput << "," << last_nameInput << "," << middle_nameInput << "," << suffixInput << "," << genderInput << "," << birth_dayInput << "," << birth_monthInput << "," << birth_yearInput << "," << addressInput << "," << courseInput << "," << year_and_sectionInput << "," << emailInput << "," << phone_numberInput << "," << notesInput << std::endl;
 
   std::cout << "Student added successfully"
@@ -329,20 +340,57 @@ auto main() -> int
   auto Ollie = Student("2022M0012", None, "Oliver", "Paracale", None, "Male", 12, "January", 2000, None, None, None, None, None, None);
   auto Manuel = Student();
 
-  auto StudentObj = Student();
+  // auto StudentObj = Student();
+  Student StudentObj;
 
-  Ollie.set_from_str("id", "2022M1111");
-  Manuel.set_from_str("first_name", "John Manuel Carado");
-  Ollie.set_from_str("last_name", "Ladores");
-  std::cout << Ollie.get_from_str("last_name").value_or("No value here.") << std::endl;
-  try
+  // Variable Declarations
+  int choice;
+  std::string filename;
+
+  // Ollie.set_from_str("id", "2022M1111");
+  // Manuel.set_from_str("first_name", "John Manuel Carado");
+  // Ollie.set_from_str("last_name", "Ladores");
+  // std::cout << Ollie.get_from_str("last_name").value_or("No value here.") << std::endl;
+  // try
+  // {
+  //   Ollie.set_from_str("invalid", "This should throw an error.");
+  // }
+  // catch (std::invalid_argument &e)
+  // {
+  //   std::cout << e.what() << std::endl;
+  // }
+  // Ollie.display();
+  // return 0;
+
+  // Create the Actual File Object and Reading of the File
+  choice = PromptUI();  
+  switch (choice)
   {
-    Ollie.set_from_str("invalid", "This should throw an error.");
-  }
-  catch (std::invalid_argument &e)
-  {
-    std::cout << e.what() << std::endl;
-  }
-  Ollie.display();
-  return 0;
+  case 1:
+    prompt_student();
+    break;
+  case 2:
+    std::cout << "Student Name to Access: ";
+    std::cin >> filename;
+    filename = "./Students_Info/" + filename + ".csv";
+    StudentObj.read_from_file(filename);
+    StudentObj.display();
+    break;
+  case 3:
+    std::cout << "Edit Student"
+              << "\n";
+    break;
+  case 4:
+    std::cout << "Delete Student"
+              << "\n";
+    break;
+  case 5:
+    std::cout << "Exiting..."
+              << "\n";
+    break;
+  default:
+    std::cout << "Invalid Input!"
+              << "\n";
+    break;
+  } 
 }
