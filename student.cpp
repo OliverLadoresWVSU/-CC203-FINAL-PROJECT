@@ -141,7 +141,7 @@ public:
 
   /**
    * @brief Display the student information.
-   * 
+   *
    */
   void display()
   {
@@ -160,7 +160,8 @@ public:
     std::cout << "\t||    %#################&&#####   || "
               << "Name: " << last_name.value_or("No Last Name")
               << ", " << first_name.value_or("No First Name")
-              << " " << middle_name.value_or("No Middle Name") << "\n";
+              << " " << middle_name.value_or("No Middle Name")
+              << " " << suffix.value_or("") << "\n";
     std::cout << "\t||    ###############&&&&&%#####  || "
               << "Gender: " << gender.value_or("No Gender") << "\n";
     std::cout << "\t||    ##############&&&&&&&###### || "
@@ -192,7 +193,7 @@ public:
 
   /**
    * @brief Read the student information from a file. Set the instance variables to the values read from the file.
-   * 
+   *
    * @param filename Name of file to read the student information from. The file name is the Surname of the Student.
    */
   void read_from_file(std::string filename)
@@ -231,14 +232,44 @@ public:
       phone_number = tokens[13];
       notes = tokens[14];
     }
-    student_file.close(); 
+    student_file.close();
   }
+
+  void edit_student() {
+  std::string member, data;
+  std::string filename;
+  filename = "./Students_Info/" + last_name.value() + ".csv";
+  std::cout << "Student information to edit: ";
+  std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+  std::getline(std::cin, member);
+  std::cout << "Data to enter: ";
+  std::getline(std::cin, data);
+  try
+  {
+    set_from_str(member, data);
+  }
+  catch(const std::exception& e)
+  {
+    std::cerr << e.what() << '\n';
+  }
+  std::ofstream addStudent(filename, std::ios::out);
+  if (addStudent.fail())
+  {
+    std::cout << "Error Creating File!"
+              << "\n";
+    addStudent.close();
+    throw std::runtime_error("Error Creating File!");
+  }
+
+  addStudent << id.value_or("") << "," << first_name.value_or("") << "," << last_name.value_or("") << "," << middle_name.value_or("") << "," << suffix.value_or("") << "," << gender.value_or("") << "," << birth_day.value() << "," << birth_month.value_or("") << "," << birth_year.value() << "," << address.value_or("") << "," << course.value_or("") << "," << year_and_section.value_or("") << "," << email.value_or("") << "," << phone_number.value_or("") << "," << notes.value_or("") << std::endl;
+
+  std::cout << "Student edited successfully.\n";
+}
 };
 
 /**
  * @brief Write the student information to a file.
  *
- * @param filename The filename of the file to write to. Preferably in .csv format.
  * File is formatted as follows: id, first_name, last_name, middle_name, suffix, gender, birth_day, birth_month, birth_year, address, course, year_and_section, email, phone_number, notes
  */
 void prompt_student() // Accessed Parameters from the Student Class no filename needed since the file name would be the student's last name.
@@ -249,6 +280,7 @@ void prompt_student() // Accessed Parameters from the Student Class no filename 
   // Prompt the user for the student's information.
   while (!is_finished)
   {
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     std::cout << "Enter the Student's ID: ";
     std::getline(std::cin, idInput); // Error when trying to write
     std::cout << "Enter the Student's First Name: ";
@@ -280,7 +312,6 @@ void prompt_student() // Accessed Parameters from the Student Class no filename 
     std::cout << "Enter the Student's Notes: ";
     std::getline(std::cin, notesInput);
     is_finished = 1;
-
   }
 
   // Open the file to write to.
@@ -302,7 +333,7 @@ void prompt_student() // Accessed Parameters from the Student Class no filename 
   // Write the student's information to the file, pero dw no need na run mn ang delims pay? since automatic na si CSV ga input ka file name na .csv
   addStudent << idInput << "," << first_nameInput << "," << last_nameInput << "," << middle_nameInput << "," << suffixInput << "," << genderInput << "," << birth_dayInput << "," << birth_monthInput << "," << birth_yearInput << "," << addressInput << "," << courseInput << "," << year_and_sectionInput << "," << emailInput << "," << phone_numberInput << "," << notesInput << std::endl;
 
-  std::cout << "Student added successfully"
+  std::cout << "Student added successfully. Saved as " << last_nameInput << ".csv in ./Students_Info."
             << "\n";
   addStudent.close();
 }
@@ -336,9 +367,9 @@ int PromptUI()
 
 auto main() -> int
 {
-  auto None = std::nullopt;
-  auto Ollie = Student("2022M0012", None, "Oliver", "Paracale", None, "Male", 12, "January", 2000, None, None, None, None, None, None);
-  auto Manuel = Student();
+  // auto None = std::nullopt;
+  // auto Ollie = Student("2022M0012", None, "Oliver", "Paracale", None, "Male", 12, "January", 2000, None, None, None, None, None, None);
+  // auto Manuel = Student();
 
   // auto StudentObj = Student();
   Student StudentObj;
@@ -363,7 +394,7 @@ auto main() -> int
   // return 0;
 
   // Create the Actual File Object and Reading of the File
-  choice = PromptUI();  
+  choice = PromptUI();
   switch (choice)
   {
   case 1:
@@ -377,12 +408,27 @@ auto main() -> int
     StudentObj.display();
     break;
   case 3:
-    std::cout << "Edit Student"
-              << "\n";
+    std::cout << "Student Name to Edit: ";
+    std::cin >> filename;
+    filename = "./Students_Info/" + filename + ".csv";
+    StudentObj.read_from_file(filename);
+    StudentObj.display();
+    StudentObj.edit_student();
+    StudentObj.display();
     break;
   case 4:
-    std::cout << "Delete Student"
-              << "\n";
+    std::cout << "Student Name to Delete: ";
+    std::cin >> filename;
+    filename = "./Students_Info/" + filename + ".csv";
+    if(std::filesystem::remove(filename))
+    {
+      std::cout << "Student successfully deleted.";
+    }
+    else
+    {
+      std::cout << "Student unsuccessfully deleted";
+    }
+    
     break;
   case 5:
     std::cout << "Exiting..."
@@ -392,5 +438,5 @@ auto main() -> int
     std::cout << "Invalid Input!"
               << "\n";
     break;
-  } 
+  }
 }
