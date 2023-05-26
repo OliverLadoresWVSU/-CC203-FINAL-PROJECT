@@ -338,6 +338,23 @@ void prompt_student() // Accessed Parameters from the Student Class no filename 
   addStudent.close();
 }
 
+void delete_student(std::string filename){
+  char choice;
+  std::cout << "Are you sure you want to delete this student? (Y/N): ";
+  std::cin >> choice;
+  if (std::filesystem::exists(filename) && choice == 'Y' || choice == 'y')
+  {
+    std::filesystem::remove(filename);
+    std::cout << "Student deleted successfully"
+              << "\n";
+  }
+  else
+  {
+    std::cout << "Student does not exist!"
+              << "\n";
+  }
+}
+
 //! TODO: This may need to be refactored later.
 int PromptUI()
 {
@@ -420,15 +437,7 @@ auto main() -> int
     std::cout << "Student Name to Delete: ";
     std::cin >> filename;
     filename = "./Students_Info/" + filename + ".csv";
-    if(std::filesystem::remove(filename))
-    {
-      std::cout << "Student successfully deleted.";
-    }
-    else
-    {
-      std::cout << "Student unsuccessfully deleted";
-    }
-    
+    delete_student(filename);
     break;
   case 5:
     std::cout << "Exiting..."
