@@ -138,6 +138,10 @@ public:
       throw std::invalid_argument("Invalid member name.");
   }
 
+  /**
+   * @brief Display the student information.
+   * 
+   */
   void display()
   {
     std::cout << "\t\t\t\t\t------------------------------------"
@@ -162,17 +166,17 @@ public:
               << "Birthdate: " << birth_month.value_or("No Birth Month") << " "
               << birth_day.value_or(0) << ", " << birth_year.value_or(0) << "\n";
     std::cout << "\t||    .########&&&&&&&&&&&&#####% || "
-              << "Year: " << year_and_section.value_or("No Year and Section") << "\n";
+              << "Address: " << address.value_or("No Address") << "\n";
     std::cout << "\t||     #####&&&&&&&&&&&&&&&####%# || "
-              << "Course: " << course.value_or("No Course") << "\n";
+              << "Year: " << year_and_section.value_or("No Year and Section") << "\n";
     std::cout << "\t||     #####&&&&&&&&&&&&&&&####   || "
-              << "Email: " << email.value_or("No Email") << "\n";
+              << "Course: " << course.value_or("No Course") << "\n";
     std::cout << "\t||    .#%###&&&&&&&&&&&&&&####    || "
-              << "Phone Number: " << phone_number.value_or("No Phone Number") << "\n";
+              << "Email: " << email.value_or("No Email") << "\n";
     std::cout << "\t||        ####&&&&&&&&&&%##%&     || "
-              << "Notes: " << notes.value_or("None") << "\n";
+              << "Phone Number: " << phone_number.value_or("No Phone Number") << "\n";
     std::cout << "\t||       .*%%#%&&&&&&&&&#%%%*     || "
-              << "\n";
+              << "Notes: " << notes.value_or("None") << "\n";
     std::cout << "\t||           #%&%%&&%%%%%         || "
               << "\n";
     std::cout << "\t|| &%#####%####&&&&&&&&&###%######|| "
@@ -185,7 +189,11 @@ public:
               << "\n";
   }
 
-  //! TODO: Add a function that will add student from file.
+  /**
+   * @brief Read the student information from a file. Set the instance variables to the values read from the file.
+   * 
+   * @param filename Name of file to read the student information from.
+   */
   void read_from_file(std::string filename)
   {
     std::ifstream student_file(filename, std::ios::in);
@@ -232,7 +240,7 @@ public:
  * @param filename The filename of the file to write to. Preferably in .csv format.
  * File is formatted as follows: id, first_name, last_name, middle_name, suffix, gender, birth_day, birth_month, birth_year, address, course, year_and_section, email, phone_number, notes
  */
-void AddStudent()
+void prompt_student(std::string filename)
 {
   std::string idInput, first_nameInput, middle_nameInput, last_nameInput, genderInput, year_and_sectionInput, courseInput, emailInput, phone_numberInput, notesInput, birth_dayInput, birth_monthInput, birth_yearInput, addressInput, suffixInput;
   bool is_finished = 0;
@@ -281,7 +289,7 @@ void AddStudent()
     throw std::runtime_error("Error Creating File!");
   }
 
-  addStudent << idInput << ", " << first_nameInput << ", " << last_nameInput << ", " << middle_nameInput << ", " << suffixInput << ", " << genderInput << ", " << birth_dayInput << ", " << birth_monthInput << ", " << birth_yearInput << ", " << addressInput << ", " << courseInput << ", " << year_and_sectionInput << ", " << emailInput << ", " << phone_numberInput << ", " << notesInput << std::endl;
+  addStudent << idInput << "," << first_nameInput << "," << last_nameInput << "," << middle_nameInput << "," << suffixInput << "," << genderInput << "," << birth_dayInput << "," << birth_monthInput << "," << birth_yearInput << "," << addressInput << "," << courseInput << "," << year_and_sectionInput << "," << emailInput << "," << phone_numberInput << "," << notesInput << std::endl;
 
   std::cout << "Student added successfully"
             << "\n";
@@ -315,37 +323,6 @@ int PromptUI()
   return choice;
 }
 
-void Function_Choices(){
-  int choice = PromptUI();
-  Student student;
-  switch (choice)
-  {
-  case 1:
-    AddStudent();
-    ViewStudent(student);
-    student.display();
-    break;
-  case 2:
-    ViewStudent(student);
-    break;
-  case 3:
-    // EditStudent();
-    break;
-  case 4:
-    // DeleteStudent();
-    break;
-  case 5:
-    std::cout << "Exiting Program..."
-              << "\n";
-    exit(1);
-    break;
-  default:
-    std::cout << "Invalid Input!"
-              << "\n";
-    break;
-  }
-}
-
 auto main() -> int
 {
   auto None = std::nullopt;
@@ -354,7 +331,6 @@ auto main() -> int
 
   auto StudentObj = Student();
 
-  Function_Choices();
   Ollie.set_from_str("id", "2022M1111");
   Manuel.set_from_str("first_name", "John Manuel Carado");
   Ollie.set_from_str("last_name", "Ladores");
